@@ -1,0 +1,56 @@
+<!DOCTYPE HTMLPUBLIC“-//W3C//DTD HTML 4.0 Transitional//EN”>
+<html>
+<head>
+	<title></title>
+	<script src="jquery-1.4.1.js" type="text/javascript"></script>
+	<script src="jquery-1.4.1.min.js" type="text/javascript"></script>
+	 
+    <script type="text/javascript" language="javascript">
+
+    var myReq = new XMLHttpRequest();
+    //$.support.cors = true;
+    jQuery.support.cors =true;
+    function callWSMethod1()
+    {
+        if (window.XMLHttpRequest)
+            {
+                var url = "http://localhost:1270/Service1.asmx?op=HelloWorld"
+                myReq.onreadystatechange = CheckStatus1;
+                myReq.open("GET", url, true); // true indicates asynchronous request
+                myReq.send();
+            }
+    }
+
+    function CheckStatus1()
+    {
+        if (myReq.readyState == 4) // Completed operation
+        {
+            myReq.open("POST","http://localhost:1270/Service1.asmx/HelloWorld", false);
+            myReq.send();
+            form1.TextArea1.value = myReq.responseText;
+        }
+    }
+    
+    function otro(){
+	
+	    	myReq.open("POST","http://192.168.3.68:8086/WebService1/Service1.asmx/suma", false);
+	    	myReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+            myReq.send("a=2&b=3");
+            form1.TextArea1.value = myReq.responseText;
+    }
+</script>
+</head>
+<body >
+  <form id="form1" runat="server">
+
+    <div>   
+
+        <input id="Button1" type="button" value="Get WebService" onclick="otro() " /><br />  
+
+        <textarea id="TextArea1" name="S1"></textarea>
+
+    </div>
+
+    </form>
+</body>
+</html>
